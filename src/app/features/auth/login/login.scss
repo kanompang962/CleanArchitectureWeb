@@ -1,8 +1,4 @@
 .login-container {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background: var(--mat-sys-surface);
 }
 
@@ -11,16 +7,6 @@
   max-width: 400px;
   padding: 8px;
 }
-
-.login-form {
-  display: flex;
-  flex-direction: column;
-}
-
-.full-width {
-  width: 100%;
-}
-
 
 
 

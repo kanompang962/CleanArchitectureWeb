@@ -8,11 +8,12 @@ import { MatError, MatFormField } from '@angular/material/form-field';
 import { MatButton } from '@angular/material/button';
 import { MatInput } from '@angular/material/input';
 import { MatCard, MatCardContent, MatCardHeader, MatCardSubtitle, MatCardTitle } from '@angular/material/card';
+import { InputComponent } from "../../../shared/components/ui/input.component/input.component";
 
 @Component({
   selector: 'app-login',
   imports: [
-    CommonModule, 
+    CommonModule,
     ReactiveFormsModule,
     MatFormField,
     MatInput,
@@ -22,8 +23,9 @@ import { MatCard, MatCardContent, MatCardHeader, MatCardSubtitle, MatCardTitle }
     MatCardTitle,
     MatCardHeader,
     MatCardSubtitle,
-    MatError
-  ],
+    MatError,
+    InputComponent
+],
   templateUrl: './login.html',
   styleUrl: './login.scss',
 })
@@ -49,7 +51,7 @@ export class Login implements OnInit{
 
   submit() {
     if (this.form.invalid) return;
-
+    return console.log(this.form.getRawValue)
     this.authService.login(this.form.getRawValue()).subscribe({
       // next: () => this.router.navigate(['/']),
       error: err => console.error(err)
