@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, forwardRef, Input } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
+import { AbstractControl, ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { MatError, MatFormField } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 
@@ -11,7 +11,7 @@ import { MatInput } from '@angular/material/input';
     ReactiveFormsModule,
     MatFormField,
     MatInput,
-    MatError
+    MatError,
   ],
   templateUrl: './input.component.html',
   styleUrl: './input.component.scss',
@@ -24,12 +24,12 @@ import { MatInput } from '@angular/material/input';
   ]
 })
 export class InputComponent implements ControlValueAccessor{
-  @Input() label: string = '';
+ @Input() label: string = '';
   @Input() placeholder: string = '';
   @Input() type: string = 'text';
-  @Input() appearance: 'outline' | 'fill' | 'standard' = 'outline';
+  @Input() appearance: 'outline' | 'fill'  = 'outline';
   @Input() errorMessages: { [key: string]: string } = {};
-  @Input() control?: FormControl;
+  @Input() control: AbstractControl | null | undefined;
 
   value: any = '';
   disabled: boolean = false;
@@ -62,19 +62,20 @@ export class InputComponent implements ControlValueAccessor{
 
   // Get error message based on validation errors
   getErrorMessage(): string {
+    console.log('first')
     if (!this.control || !this.control.errors) {
       return '';
     }
-
     const errors = this.control.errors;
-    
     // Check for custom error messages first
     for (const errorKey in errors) {
-      if (this.errorMessages[errorKey]) {
+      if (this.errorMessages && this.errorMessages[errorKey]) {
+        console.log(this.errorMessages[errorKey])
         return this.errorMessages[errorKey];
       }
     }
-
+    console.log(errors)
+    console.log('errorMessages:', this.errorMessages);
     // Default error messages
     if (errors['required']) {
       return `${this.label || 'This field'} is required`;

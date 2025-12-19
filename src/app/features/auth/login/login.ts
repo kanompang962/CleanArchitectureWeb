@@ -4,9 +4,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LoginForm } from '../../../core/models/auth-models/login.model';
-import { MatError, MatFormField } from '@angular/material/form-field';
 import { MatButton } from '@angular/material/button';
-import { MatInput } from '@angular/material/input';
 import { MatCard, MatCardContent, MatCardHeader, MatCardSubtitle, MatCardTitle } from '@angular/material/card';
 import { InputComponent } from "../../../shared/components/ui/input.component/input.component";
 
@@ -15,15 +13,12 @@ import { InputComponent } from "../../../shared/components/ui/input.component/in
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    MatFormField,
-    MatInput,
     MatButton,
     MatCard,
     MatCardContent,
     MatCardTitle,
     MatCardHeader,
     MatCardSubtitle,
-    MatError,
     InputComponent
 ],
   templateUrl: './login.html',
@@ -45,13 +40,18 @@ export class Login implements OnInit{
   initFormLogin(): void {
     this.form = this.fb.nonNullable.group({
       userNameOrEmail: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
+  }
+  
+  change(event: string) {
+
   }
 
   submit() {
+    console.log(this.form.invalid)
     if (this.form.invalid) return;
-    return console.log(this.form.getRawValue)
+    return console.log(this.form.getRawValue())
     this.authService.login(this.form.getRawValue()).subscribe({
       // next: () => this.router.navigate(['/']),
       error: err => console.error(err)
