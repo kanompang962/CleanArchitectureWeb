@@ -1,6 +1,66 @@
-/* You can add global styles to this file, and also import other style files */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+
+@use '@angular/material' as mat;
+
+:root {
+  --mat-sys-primary: #4f46e5;
+  --mat-sys-on-primary: #ffffff;
+
+  --mat-sys-secondary: #0d9488;
+  --mat-sys-on-secondary: #ffffff;
+
+  --mat-sys-surface: #f9fafb;
+  --mat-sys-on-surface: #111827;
+  // card
+  --mat-sys-surface-container: #ffffff;
+  --mat-sys-surface-container-low: #ffffff;
+  --mat-sys-surface-container-high: #ffffff;
+}
+
+
+html {
+  @include mat.theme((
+    color: (
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  ));
+}
+
+body {
+  color-scheme: light;
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+  margin: 0;
+}
+
+html, body { height: 100%; }
+body { 
+  margin: 0; 
+  font-family: Roboto, 
+  "Helvetica Neue", sans-serif; 
+
+  /* -----------------------------
+           Material UI
+  ----------------------------- */
+  .mdc-text-field--outlined .mdc-notched-outline, 
+  .mat-mdc-text-field-wrapper,
+  .mat-mdc-form-field-flex
+  {
+    height: 40px;
+  }
+  .mdc-text-field--outlined .mat-mdc-form-field-infix, .mdc-text-field--no-label .mat-mdc-form-field-infix {
+    padding-top: 8px;
+    padding-bottom: 0px;
+  }
+  .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading {
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+  }
+  .mdc-notched-outline__trailing {
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+  }
 }

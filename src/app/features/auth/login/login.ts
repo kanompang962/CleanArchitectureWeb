@@ -1,13 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LoginForm } from '../../../core/models/auth-models/login.model';
+import { MatError, MatFormField } from '@angular/material/form-field';
+import { MatButton } from '@angular/material/button';
+import { MatInput } from '@angular/material/input';
+import { MatCard, MatCardContent, MatCardHeader, MatCardSubtitle, MatCardTitle } from '@angular/material/card';
 
 @Component({
   selector: 'app-login',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [
+    CommonModule, 
+    ReactiveFormsModule,
+    MatFormField,
+    MatInput,
+    MatButton,
+    MatCard,
+    MatCardContent,
+    MatCardTitle,
+    MatCardHeader,
+    MatCardSubtitle,
+    MatError
+  ],
   templateUrl: './login.html',
   styleUrl: './login.scss',
 })
@@ -26,10 +42,9 @@ export class Login implements OnInit{
 
   initFormLogin(): void {
     this.form = this.fb.nonNullable.group({
-      userNameOrEmail: 'def',
-      password: 'Def@0931177457'
+      userNameOrEmail: ['', Validators.required],
+      password: ['', Validators.required]
     });
-    console.log(this.form)
   }
 
   submit() {
